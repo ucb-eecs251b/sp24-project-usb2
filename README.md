@@ -1,4 +1,4 @@
-# EECS251b Usb2 Digital Projet Repository
+# EECS251b USB2 Digital Projet Repository
 
 # Setup
 ```
