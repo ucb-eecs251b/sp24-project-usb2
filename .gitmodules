@@ -145,3 +145,6 @@
 [submodule "vlsi/hammer"]
 	path = vlsi/hammer
 	url = git@github.com:rohanku/hammer.git
+[submodule "generators/sp24-project-usb2-generator"]
+	path = generators/usb2-generator
+	url = git@github.com:ucb-eecs251b/sp24-project-usb2-generator.git

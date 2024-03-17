@@ -88,3 +88,14 @@ class PrefetchingRocketConfig extends Config(
   new freechips.rocketchip.subsystem.WithNonblockingL1(2) ++                           // non-blocking L1D$, L1 prefetching only works with non-blocking L1D$
   new freechips.rocketchip.subsystem.WithNBigCores(1) ++                               // single rocket-core
   new chipyard.config.AbstractConfig)
+
+class Usb2Config extends Config(
+  new usb2.WithUsb2(usb2.Usb2Params()) ++
+  new freechips.rocketchip.subsystem.WithNSmallCores(1) ++
+  new testchipip.soc.WithNoScratchpads ++ // Remove subsystem scratchpads
+  new testchipip.serdes.WithSerialTLMem(size = (1 << 30) * 1L) ++ // Configure the off-chip memory accessible over serial-tl as backing memory
+  new freechips.rocketchip.subsystem.WithNoMemPort ++ // Remove off-chip AXI port
+  new testchipip.soc.WithOffchipBusClient(freechips.rocketchip.subsystem.MBUS) ++ // off-chip bus connects to MBUS to provide backing memory
+  new testchipip.soc.WithOffchipBus ++ // Attach off-chip bus
+  new chipyard.config.WithBroadcastManager ++ // Replace L2 with a broadcast hub for coherence
+  new chipyard.config.AbstractConfig)
