@@ -5,8 +5,8 @@
 mamba activate base
 git config --global protocol.file.allow always
 ./build-setup.sh riscv-tools -s 6 -s 7 -s 8 -s 9 -s 10 --force
-./scripts/init-vlsi.sh sky130
 source env.sh
+./scripts/init-vlsi.sh sky130
 conda config --set channel_priority strict
 mamba install firtool
 ```
