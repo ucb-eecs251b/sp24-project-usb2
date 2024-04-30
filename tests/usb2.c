@@ -1,11 +1,13 @@
 #include "mmio.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 #define USB2_LOOPBACK_W 0x7000
 #define USB2_LOOPBACK_R 0x7004
 
 int current_test = 1;
-const int TOTAL_TESTS = 4;
+const int TOTAL_TESTS = 8;
 
 void test_loopback(uint32_t test_value) {
   printf("[Test %d/%d]: Testing with value: 0x%08X - ", current_test, TOTAL_TESTS, test_value);
@@ -26,6 +28,10 @@ int main(void) {
   test_loopback(0x00000000);
   test_loopback(0xFFFFFFFF);
   test_loopback(0xDEADBEEF);
+  
+  srand(time(NULL));
+  while (current_test <= TOTAL_TESTS)
+    test_loopback(rand());
 
   return 0;
 }
