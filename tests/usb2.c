@@ -3,8 +3,18 @@
 #include <stdlib.h>
 #include <time.h>
 
+// Paramtrized data width
+#define DATA_WIDTH 8
+// Memory-mapped I/O register addresses
 #define USB2_LOOPBACK_W 0x7000
 #define USB2_LOOPBACK_R 0x7004
+#define USB2_RX_BUNDLE 0x7008
+#define USB2_UTMI_DIN 0x7018
+// Bit masks for extracting specific bits or fields
+#define RX_DOUT_MASK  ((1 << DATA_WIDTH) - 1)
+#define RX_ACTIVE_BIT (1 << DATA_WIDTH)
+#define RX_ERROR_BIT  (1 << (DATA_WIDTH + 1))
+#define TX_DIN_MASK   RX_DOUT_MASK
 
 int current_test = 1;
 const int TOTAL_TESTS = 8;
@@ -28,10 +38,24 @@ int main(void) {
   test_loopback(0x00000000);
   test_loopback(0xFFFFFFFF);
   test_loopback(0xDEADBEEF);
-  
+
   srand(time(NULL));
   while (current_test <= TOTAL_TESTS)
     test_loopback(rand());
+
+  // TODO: write a library to read and write
+  // use 32 bit type for data width agnostic
+  
+  // Write to TX
+  // Assume USB_STATUS = [TX_READY, 
+  // while ((reg_read8(USB_STATUS) & 0x2) == 0); // wait for TX ready
+  reg_write32(USB2_UTMI_DIN, 0x114514 & TX_DIN_MASK);
+
+  // Read from RX
+  uint32_t rx_bundle = reg_read32(USB2_RX_BUNDLE);
+  uint32_t rxDataOut = rx_bundle & RX_DOUT_MASK;
+  int rxActive = (rx_bundle & RX_ACTIVE_BIT) ? 1 : 0;
+  int rxError = (rx_bundle & RX_ERROR_BIT) ? 1 : 0;
 
   return 0;
 }
