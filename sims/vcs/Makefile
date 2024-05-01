@@ -56,7 +56,8 @@ include $(base_dir)/common.mk
 #########################################################################################
 VCS = vcs -full64
 
-VCS_OPTS = $(VCS_CC_OPTS) $(VCS_NONCC_OPTS) $(SIM_PREPROC_DEFINES) $(VCS_PREPROC_DEFINES)
+VCS_OPTS = -coverage -cm line+cond+fsm+branch \
+	$(VCS_CC_OPTS) $(VCS_NONCC_OPTS) $(SIM_PREPROC_DEFINES) $(VCS_PREPROC_DEFINES)
 
 #########################################################################################
 # vcs build paths
