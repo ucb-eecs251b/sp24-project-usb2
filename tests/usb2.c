@@ -21,6 +21,26 @@ void test_loopback(uint32_t test_value) {
   current_test++;
 }
 
+void perf_loopback(uint32_t test_value) {
+    clock_t start, end;
+    double operation_time;
+
+    start = clock();
+    usb2_write(test_value);
+    int rxActive, rxError;
+    uint32_t read_value = usb2_read(&rxActive, &rxError);
+    end = clock();
+    operation_time = ((double) (end - start)) / CLOCKS_PER_SEC * 1000;
+
+    printf("[Perf %d/%d]: Test value 0x%08X - Read value 0x%08X - Time: %.2f ms\n", current_test, TOTAL_TESTS, test_value, read_value, operation_time);
+    if (read_value == test_value && rxActive && !rxError) {
+        printf("PASSED - Active: %d, Error: %d\n", rxActive, rxError);
+    } else {
+        printf("FAILED - Expected: 0x%08X, Got: 0x%08X, Active: %d, Error: %d\n", test_value, read_value, rxActive, rxError);
+    }
+    current_test++;
+}
+
 int main(void) {
   test_loopback(0x1);
   test_loopback(0x00000000);
