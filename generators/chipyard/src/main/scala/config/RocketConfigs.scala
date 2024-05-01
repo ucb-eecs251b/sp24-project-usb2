@@ -90,7 +90,7 @@ class PrefetchingRocketConfig extends Config(
   new chipyard.config.AbstractConfig)
 
 class Usb2Config extends Config(
-  new usb2.WithUsb2(usb2.Usb2Params()) ++
+  new usb2.WithUsb2(usb2.Usb2Params(loopback = true)) ++
   new freechips.rocketchip.subsystem.WithNSmallCores(1) ++
   new testchipip.soc.WithNoScratchpads ++ // Remove subsystem scratchpads
   new testchipip.serdes.WithSerialTLMem(size = (1 << 30) * 1L) ++ // Configure the off-chip memory accessible over serial-tl as backing memory
