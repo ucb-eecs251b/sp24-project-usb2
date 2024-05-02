@@ -9,8 +9,8 @@ genvar i;
 generate
     for (i = 0; i < 8; i++) begin
         property p_check_serialized_bit;
-        @(posedge clockOut)
-            $past(pDataIn[i], 8) == sDataOut;
+        @(posedge `clockOut)
+            $past(`pDataIn[i], 8) == `sDataOut;
         endproperty
 
         assert property (p_check_serialized_bit)

@@ -19,49 +19,50 @@
 // FSM state checks
 // It generally follow the spec provided by Intel, but it seems like TX team has changed the structure, so some adjustments are made
 property CheckIDLEToSYNCGEN;
-  @(posedge clock) disable iff (reset)
-  (fsm_state == IDLE && in_valid) |-> ##1 (fsm_state == SYNCGEN && fsm_data == 8'b10000000);
+  @(posedge `clock) disable iff (`reset)
+  (`fsm_state == `IDLE && `in_valid) |-> ##1 (`fsm_state == `SYNCGEN && `fsm_data == 8'b10000000);
 endproperty
 CheckIDLEToSYNCGENAssertion: assert property (CheckIDLEToSYNCGEN);
 
 property CheckSYNCGENToDATATX;
-   @(posedge clock) disable iff (reset)
-   (fsm_state == SYNCGEN && counter == 0 && out_ready == 1) |-> ##1 (fsm_state == DATATX);
+   @(posedge `clock) disable iff (`reset)
+   (`fsm_state == `SYNCGEN && `counter == 0 && `out_ready == 1) |-> ##1 (`fsm_state == `DATATX);
 endproperty
 CheckSYNCGENToDATATXAssertion: assert property (CheckSYNCGENToDATATX);
 
 property CheckDATATXToEOPGEN;
-  @(posedge clock) disable iff (reset)
-  (fsm_state == DATATX && in_valid == 0) |-> ##1 (fsm_state == EOPGEN && fsm_data == 8'b11111001 && in_ready == 0);
+  @(posedge `clock) disable iff (`reset)
+  (`fsm_state == `DATATX && `in_valid == 0) |-> ##1 (`fsm_state == `EOPGEN && `fsm_data == 8'b11111001 && `in_ready == 0);
 endproperty
 CheckDATATXToEOPGENAssertion: assert property (CheckDATATXToEOPGEN);
 
 property CheckEOPGENToIDLE;
-  @(posedge clock) disable iff (reset)
-  (fsm_state == EOPGEN && counter == 0) |-> ##1 (fsm_state == IDLE);
+  @(posedge `clock) disable iff (`reset)
+  (`fsm_state == `EOPGEN && `counter == 0) |-> ##1 (`fsm_state == `IDLE);
 endproperty
  CheckEOPGENToIDLEAssertion: assert property (CheckEOPGENToIDLE);
 
 
+
 // cover checks for FSM states to be reached
-typedef enum {IDLE, SYNCGEN, DATATX, EOPGEN} StateType;
+typedef enum {`IDLE, `SYNCGEN, `DATATX, `EOPGEN} StateType;
 StateType STATE;
 
 property CoverIDLE;
-    @(posedge clock) disable iff (reset)
-    fsm_state == IDLE;
+    @(posedge `clock) disable iff (`reset)
+    `fsm_state == `IDLE;
 endproperty;
 property CoverSYNCGEN;
-    @(posedge clock) disable iff (reset)
-    fsm_state == SYNCGEN;
+    @(posedge `clock) disable iff (`reset)
+    `fsm_state == `SYNCGEN;
 endproperty;
 property CoverDATATX;
-    @(posedge clock) disable iff (reset)
-    fsm_state == DATATX;
+    @(posedge `clock) disable iff (`reset)
+    `fsm_state == `DATATX;
 endproperty;
 property CoverEOPGEN;
-    @(posedge clock) disable iff (reset)
-    fsm_state == EOPGEN;
+    @(posedge `clock) disable iff (`reset)
+    `fsm_state == `EOPGEN;
 endproperty;
 
 IDLE_C: cover property (CoverIDLE);
