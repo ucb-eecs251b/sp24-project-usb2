@@ -7,6 +7,12 @@ with support for data transfer rates of **12 Mbps (Full-Speed, FS)** and **480 M
 This Chipyard repository is currently the testing ground for this (as of May 10, 2024, incomplete USB generator). 
 Feel free to reference the generator repository (submodule) for relevant READMEs on module status.
 
+*USB 2.0 is real! Floorplans for motivation:*
+
+![USBSize.png](README_figs/USBSize.png)
+
+![USBBlob.png](README_figs/USBBlob.png)
+
 ## Setup
 
 First time setup:
