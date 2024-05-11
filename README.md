@@ -12,7 +12,7 @@ mamba install firtool
 ```
 
 USB2.0 is set up as a generator/ submodule aptly named `usb2-generator`.
-To update it to the latest commit in the other repo, run `git submodule update --remote usb2-generator`.
+To update it to the latest commit in the other repo, run `git submodule update --remote usb2-generator` (from the generators folder).
 Note that `git submodule update` will *not* update to the latest commit, which may or may not be what you want.
 
 **Debug Notes**
