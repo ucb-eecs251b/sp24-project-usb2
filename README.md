@@ -9,9 +9,9 @@ Feel free to reference the generator repository (submodule) for relevant READMEs
 
 *USB 2.0 is real! Floorplans for motivation:*
 
-![USBSize.png](README_figs/USBSize.png)
+ <img src="README_figs/USBSize.png" alt="USBSize.png" width="400">
 
-![USBBlob.png](README_figs/USBBlob.png)
+<img src="README_figs/USBBlob.png" alt="USBBlob.png" width="600">
 
 ## Setup
 
