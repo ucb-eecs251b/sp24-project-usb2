@@ -49,11 +49,11 @@ vlsi.inputs.placement_constraints:
     orientation: r270
 
     # srambist
-  - path: ChipTop/system/srambist/sram
-    type: hardmacro
-    x: 470
-    y: 1600
-    orientation: my90
+  # - path: ChipTop/system/srambist/sram
+  #   type: hardmacro
+  #   x: 470
+  #   y: 1600
+  #   orientation: my90
 
 # Power straps
 par.power_straps_mode: generate
